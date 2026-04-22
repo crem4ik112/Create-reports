@@ -5,8 +5,7 @@ from docx.shared import Pt
 import os
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 import re
-
-
+    
 
 def set_styles(font_name,font_size,document_styles,document):
     style = document.styles[document_styles]
@@ -76,5 +75,5 @@ for tag in without_empty_sections_tags:
         except:
              print(f"картинка {'https:'+ link} не добавлена")
 
-document.save('text.docx')  
-os.startfile('text.docx') 
+document.save('result.docx')  
+os.startfile('result.docx') 
