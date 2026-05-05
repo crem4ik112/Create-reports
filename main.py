@@ -14,7 +14,7 @@ def set_styles(font_name,font_size,document_styles,document):
 
 
 
-link = input('введите ссылку: ') 
+link = input('введите ссылку:  ') 
 while "wikipedia.org" not in link:
     print("ссылка не в википедию. Введите еще раз: ")
     link = input('введите ссылку: ') 
@@ -27,11 +27,21 @@ soup = BeautifulSoup(response.text, features="html.parser")
 document = Document()
 
 
-style = input("Введите стиль: ")
-name = input("Введите имя шрифта: ")
-size = input("введите размер шрифта: ")
 
-set_styles(font_name=name ,font_size=size ,document_styles=style ,document = document)
+
+while True:
+    style = input("Введите стиль: ")
+    name = input("Введите имя шрифта: ")
+    size = input("введите размер шрифта: ")
+    try:
+        set_styles(font_name=name ,font_size=size ,document_styles=style ,document = document)
+        break
+    except KeyError:
+        print("стиля с таким названием не существует")
+    except ValueError:
+        print("размера такого не существует")
+
+
 
 clear_report = soup.find('div', class_="vector-body")
 tags = clear_report.find_all(['p','h2','h1','img'])
@@ -75,5 +85,12 @@ for tag in without_empty_sections_tags:
         except:
              print(f"картинка {'https:'+ link} не добавлена")
 
-document.save('result.docx')  
-os.startfile('result.docx') 
+             
+while True:
+    try:
+        document.save('result.docx')
+        break
+    except PermissionError:
+        input("закройте word-файл и нажминьте enter")
+        
+# os.startfile('result.docx') 
